@@ -12,7 +12,7 @@ A bare-bones page that loads a TensorFlow.js model, starts the webcam, and strea
 3. Click **Load model & start camera** to begin streaming predictions.
 
 If you see a 404 or "Model file not found" error when loading the model, confirm that:
-- The files live inside `tfjs_model/` (next to `index.html`).
+- The files live inside `tfjs_model/` (next to `index.html`). The app explicitly requests `tfjs_model/model.json`, so a typo like `mode.json` will fail.
 - The main JSON file is exactly `model.json` (no extra suffixes).
 - You are serving the folder over HTTP (for example, `python3 -m http.server 8000`) so the browser can fetch the files.
 
