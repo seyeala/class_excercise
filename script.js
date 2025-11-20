@@ -39,6 +39,17 @@ async function loadModel() {
     );
   }
 
+  const invalidGroup = manifest.weightsManifest.find(
+    group => !Array.isArray(group.paths) || group.paths.length === 0 || !group.paths.every(p => typeof p === 'string' && p.trim())
+  );
+
+  if (invalidGroup) {
+    throw new Error(
+      `Model file at "${MODEL_PATH}" has an invalid weightsManifest.paths entry. ` +
+      'Each weightsManifest item must include a non-empty array of shard file names. Re-export the model to regenerate model.json.'
+    );
+  }
+
   model = await tf.loadLayersModel(MODEL_PATH);
 
   statusEl.textContent = 'Model loaded. Requesting camera...';
