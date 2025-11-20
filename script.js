@@ -4,13 +4,15 @@ const videoEl = document.getElementById('webcam');
 const startBtn = document.getElementById('start-btn');
 
 const IMAGE_SIZE = 160; // must match your model's input size
-const MODEL_PATH = 'tfjs_model/model.json';
+// Default model location. The fetch below will clearly surface the exact path
+// being requested to avoid confusion (e.g., accidentally requesting "mode.json").
+const MODEL_PATH = './tfjs_model/model.json';
 
 let model = null;
 let running = false;
 
 async function loadModel() {
-  statusEl.textContent = 'Loading model...';
+  statusEl.textContent = `Loading model from ${MODEL_PATH}...`;
 
   // Fetch the JSON up front so we can validate its contents and surface
   // clearer errors than the generic "Array.prototype.every called on null".
