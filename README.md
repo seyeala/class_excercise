@@ -8,6 +8,8 @@ This repo is a minimal starter for browser-based classification demos. Drop in a
 3. Enter the model URL (relative path works for GitHub Pages, e.g., `tfjs_model/model.json`) and your labels in output order (comma-separated).
 4. Click **Load model & start camera**.
 
+The loader will first try `tf.loadLayersModel` (for Keras-style exports) and fall back to `tf.loadGraphModel`, so you can point it at either TF.js format.
+
 The page will request camera permission, load the model, and show live predictions at a modest frame rate to stay laptop-friendly.
 
 ## How it works
