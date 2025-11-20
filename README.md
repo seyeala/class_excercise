@@ -3,11 +3,11 @@
 A bare-bones page that loads a TensorFlow.js model, starts the webcam, and streams live class index predictions.
 
 ## Setup
-1. Place your exported TF.js files in the repository root next to `index.html`:
-   - `model.json` (rename from `model (1).json` if needed)
-   - `group1-shard1of3.bin`
-   - `group1-shard2of3.bin`
-   - `group1-shard3of3.bin`
+1. Place your exported TF.js files inside the `tfjs_model/` folder:
+   - `tfjs_model/model.json` (rename from `model (1).json` if needed)
+   - `tfjs_model/group1-shard1of3.bin`
+   - `tfjs_model/group1-shard2of3.bin`
+   - `tfjs_model/group1-shard3of3.bin`
 2. Open `index.html` in your browser.
 3. Click **Load model & start camera** to begin streaming predictions.
 
