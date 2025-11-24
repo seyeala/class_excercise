@@ -8,6 +8,9 @@ A bare-bones page that loads a TensorFlow.js model, starts the webcam, and strea
    - `tfjs_model/group1-shard1of3.bin`
    - `tfjs_model/group1-shard2of3.bin`
    - `tfjs_model/group1-shard3of3.bin`
+   
+   > Tip: the app now checks a few common locations for the model (e.g., `./tfjs_model/model.json`, `../tfjs_model/model.json`).
+   > This helps when serving the page from a subfolder while keeping the model files one level up.
 2. Open `index.html` in your browser.
 3. Click **Load model & start camera** to begin streaming predictions.
 
