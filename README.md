@@ -20,3 +20,13 @@ If you see a 404 or "Model file not found" error when loading the model, confirm
 - You are serving the folder over HTTP (for example, `python3 -m http.server 8000`) so the browser can fetch the files.
 
 The page uses TensorFlow.js `4.22.0` from the CDN. If that version is unavailable, swap the script tag to `@latest` instead.
+
+## Tests
+
+This repo uses Node's built-in test runner. A lightweight DOM stub is used so the browser code can be exercised in CI.
+
+Run all checks with:
+
+```
+npm test
+```
