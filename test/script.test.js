@@ -117,3 +117,71 @@ test('start() uses injected hooks and guards duplicate calls', async () => {
 
   app.resetTestHooks();
 });
+
+test('start() can run with default hooks using a stubbed tf model', async () => {
+  const { status, prediction, webcam } = buildDom();
+  delete require.cache[require.resolve(scriptPath)];
+
+  const fromPixelsCalls = [];
+  const predictInputs = [];
+  const modelLoadUrls = [];
+
+  const fakeTensor = {
+    resizeBilinear: () => fakeTensor,
+    toFloat: () => fakeTensor,
+    expandDims: () => fakeTensor,
+  };
+
+  global.fetch = async () => ({
+    ok: true,
+    status: 200,
+    json: async () => ({ weightsManifest: [{ paths: ['group1-shard1of1.bin'] }] }),
+  });
+
+  global.navigator = {
+    mediaDevices: {
+      getUserMedia: () => Promise.resolve({ label: 'stub-stream' }),
+    },
+  };
+
+  global.tf = {
+    tidy: (fn) => fn(),
+    browser: {
+      fromPixels: (el) => {
+        fromPixelsCalls.push(el);
+        return fakeTensor;
+      },
+    },
+    loadLayersModel: async (url) => {
+      modelLoadUrls.push(url);
+      return {
+        predict: (input) => {
+          predictInputs.push(input);
+          return { dataSync: () => [0.1, 0.9] };
+        },
+      };
+    },
+  };
+
+  const app = require(scriptPath);
+
+  app.setTestHooks({
+    setupCamera: async () => {
+      status.textContent = 'Camera ready. Running predictions...';
+    },
+  });
+
+  const startPromise = app.start();
+  await startPromise;
+
+  assert.equal(status.textContent, 'Camera ready. Running predictions...');
+  assert.equal(prediction.textContent, 'class_1');
+
+  assert.deepEqual(modelLoadUrls, ['http://localhost/tfjs_model/model.json']);
+  assert.equal(fromPixelsCalls[0], webcam);
+  assert.equal(predictInputs.length, 1);
+
+  app.resetTestHooks();
+  delete global.tf;
+  delete global.fetch;
+});
