@@ -34,12 +34,14 @@ function buildDom() {
   const prediction = makeElement('prediction');
   const webcam = makeElement('webcam');
   const startBtn = makeElement('start-btn');
+  const modelUrl = { ...makeElement('model-url'), value: '/tfjs_model/model.json' };
 
   const elements = {
     'status': status,
     'prediction': prediction,
     'webcam': webcam,
     'start-btn': startBtn,
+    'model-url': modelUrl,
   };
 
   global.document = {
