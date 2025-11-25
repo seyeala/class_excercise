@@ -5,6 +5,14 @@
   <title>TF.js Minimal Webcam Demo</title>
 </head>
 <body>
+  <label for="model-url">Model URL:</label>
+  <input
+    id="model-url"
+    type="text"
+    value="/tfjs_model/model.json"
+    placeholder="Model URL, e.g. /tfjs_model/model.json"
+  />
+  <br><br>
   <button id="start-btn">Load model & start camera</button>
   <div id="status">Idle</div>
   <br><br>
