@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "class-excercise"
+version = "0.1.0"
+description = "Utilities for patching TensorFlow.js model exports."
+readme = "README.md"
+authors = [{ name = "" }]
+requires-python = ">=3.9"
+license = { text = "ISC" }
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: ISC License (ISCL)",
+  "Operating System :: OS Independent",
+]
+dependencies = []
+
+[project.scripts]
+fix-tfjs-input-shapes = "class_excercise.fix_tfjs_input_shapes:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
