@@ -14,6 +14,20 @@ A bare-bones page that loads a TensorFlow.js model, starts the webcam, and strea
 2. Open `index.html` in your browser.
 3. Click **Load model & start camera** to begin streaming predictions.
 
+### Python helper (optional)
+
+You can install the repository as a Python package to get a small CLI
+that fixes missing `batch_input_shape` entries in exported TF.js
+`model.json` files (a common Keras 3.x quirk):
+
+```bash
+pip install .
+fix-tfjs-input-shapes
+```
+
+Run the command from the repo root (or any directory that contains a
+`tfjs_model/model.json` file) to patch the input layer config in place.
+
 If you see a 404 or "Model file not found" error when loading the model, confirm that:
 - The files live inside `tfjs_model/` (next to `index.html`). The app explicitly requests `tfjs_model/model.json`, so a typo like `mode.json` will fail.
 - The main JSON file is exactly `model.json` (no extra suffixes).
